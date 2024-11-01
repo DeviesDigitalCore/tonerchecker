@@ -43,7 +43,7 @@ def _map_output(text: str, color):
     try:
         level_value = int(level)
     except Exception as e:
-        logging.warn(f"Could not parse {level} as an integer")
+        logging.warn(f"Could not parse {level} as an integer. Full text: {text}")
         raise e
 
     return TonerStatus(color=color, level=100 - level_value)
