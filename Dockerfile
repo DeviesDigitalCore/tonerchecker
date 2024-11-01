@@ -8,4 +8,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+RUN snmpget --version
+
 ENTRYPOINT [ "python", "main.py" ]
