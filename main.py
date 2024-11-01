@@ -1,8 +1,7 @@
 import logging
-import os
 import dotenv
 import glob
-import requests
+from slack import post_to_slack
 
 
 def configure():
@@ -11,18 +10,7 @@ def configure():
         dotenv.load_dotenv(env_file)
 
 
-def POST_TO_SLACK():
-    slack_url = os.getenv("SLACK_URL")
-    assert slack_url is not None, "SLACK_URL not configured"
-
-    logging.debug(f"Using {slack_url}")
-
-    requests.post(slack_url, json={"text": "Hello, world."})
-
-
 configure()
 
 
-post_to_slack = os.getenv("SLACK_POST", False)
-if post_to_slack:
-    POST_TO_SLACK()
+post_to_slack()
