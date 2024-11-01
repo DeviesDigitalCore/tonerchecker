@@ -20,9 +20,12 @@ def levels_to_message(levels: list[TonerStatus]):
     return message
 
 
-low_level = int(os.getenv("LOW_LEVEL", 0))
-
 configure()
+
+low_level_str = os.getenv("LOW_LEVEL")
+assert low_level_str is not None, "LOW_LEVEL not configured"
+low_level = int(low_level_str)
+
 
 statuses = check_toner_status()
 low_statuses = [s for s in statuses if s.level <= low_level]
