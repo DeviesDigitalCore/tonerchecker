@@ -40,12 +40,14 @@ def _get_toner_level(ip, color):
 
 
 def _map_output(text: str, color):
-    level = text.split("%")[0].split(" ")[-1]
+    level = text.split("%")[0].split(" ")[-1].strip()
 
     try:
         level_value = int(level)
     except Exception as e:
-        logging.warn(f"Could not parse {level} as an integer. Full text: {text}")
+        logging.warn(
+            f"Could not parse {level} as an integer. Full text: {text.strip()}"
+        )
         raise e
 
     return TonerStatus(color=color, level=100 - level_value)
