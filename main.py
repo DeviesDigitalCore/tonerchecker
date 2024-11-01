@@ -1,1 +1,4 @@
-print("foo")
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logging.info("Foo")
