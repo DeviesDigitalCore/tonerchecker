@@ -20,9 +20,11 @@ def check_toner_status():
         "drum",
     ]:
         result = _get_toner_level(printer_ip, color)
-
-        out = _map_output(result, color)
-        outputs.append(out)
+        try:
+            out = _map_output(result, color)
+            outputs.append(out)
+        except Exception:
+            logging.warn(f"Could not get status for color {color}")
 
     return outputs
 
