@@ -7,7 +7,7 @@ from slack import post_to_slack
 
 
 def configure():
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.WARNING)
     for env_file in glob.glob(".env*"):
         dotenv.load_dotenv(env_file)
 
