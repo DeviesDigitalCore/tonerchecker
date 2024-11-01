@@ -1,4 +1,5 @@
 import logging
+from snmp import check_toner_status
 import dotenv
 import glob
 from slack import post_to_slack
@@ -12,5 +13,5 @@ def configure():
 
 configure()
 
-
+check_toner_status()
 post_to_slack()
