@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import logging
 import os
 import subprocess
@@ -20,7 +21,7 @@ def check_toner_status():
     ]:
         result = _get_toner_level(printer_ip, color)
 
-        out = _map_output(result)
+        out = _map_output(result, color)
         outputs.append(out)
 
     return outputs
@@ -33,9 +34,22 @@ def _get_toner_level(ip, color):
     result = subprocess.run(
         ["bash", script_path] + arguments, capture_output=True, text=True
     )
-    return result
+    return result.stdout
 
 
-def _map_output(text):
-    logging.info(text)
-    return text
+def _map_output(text: str, color):
+    level = text.split("%")[0].split(" ")[-1]
+
+    try:
+        level_value = int(level)
+    except Exception as e:
+        logging.warn(f"Could not parse {level} as an integer")
+        raise e
+
+    return TonerStatus(color=color, level=100 - level_value)
+
+
+@dataclass
+class TonerStatus:
+    color: str
+    level: int
