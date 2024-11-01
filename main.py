@@ -15,7 +15,7 @@ def configure():
 def levels_to_message(levels: list[TonerStatus]):
     message = "The follow toner levels are low:"
     for level in levels:
-        message += f"\n{level.color}: {level.level}%"
+        message += f"\n{level.consumable}: {level.level}%"
 
     return message
 

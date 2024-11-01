@@ -12,25 +12,25 @@ def check_toner_status():
     logging.info(f"Using printer IP {printer_ip}")
 
     outputs = []
-    for color in [
+    for consumable in [
         "black",
         "cyan",
         "magenta",
         "yellow",
         "drum",
     ]:
-        result = _get_toner_level(printer_ip, color)
+        result = _get_toner_level(printer_ip, consumable)
         try:
-            out = _map_output(result, color)
+            out = _map_output(result, consumable)
             outputs.append(out)
         except Exception:
-            logging.warn(f"Could not get status for color {color}")
+            logging.warn(f"Could not get status for consumable {consumable}")
 
     return outputs
 
 
-def _get_toner_level(ip, color):
-    arguments = [f"-H", ip, "-t", "consumable", "-o", color]
+def _get_toner_level(ip, consumable):
+    arguments = [f"-H", ip, "-t", "consumable", "-o", consumable]
 
     script_path = "check_snmp_printer"
     result = subprocess.run(
@@ -39,7 +39,7 @@ def _get_toner_level(ip, color):
     return result.stdout
 
 
-def _map_output(text: str, color):
+def _map_output(text: str, consumable):
     level = text.split("%")[0].split(" ")[-1].strip()
 
     try:
@@ -50,10 +50,10 @@ def _map_output(text: str, color):
         )
         raise e
 
-    return TonerStatus(color=color, level=100 - level_value)
+    return TonerStatus(consumable=consumable, level=100 - level_value)
 
 
 @dataclass
 class TonerStatus:
-    color: str
+    consumable: str
     level: int
