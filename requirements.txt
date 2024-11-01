@@ -1,3 +1,4 @@
 mypy
 python-dotenv
+requests
 pysnmp

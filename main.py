@@ -2,6 +2,7 @@ import logging
 import os
 import dotenv
 import glob
+import requests
 
 
 def configure():
@@ -15,6 +16,8 @@ def POST_TO_SLACK():
     assert slack_url is not None, "SLACK_URL not configured"
 
     logging.debug(f"Using {slack_url}")
+
+    requests.post(slack_url, json={"text": "Hello, world."})
 
 
 configure()
