@@ -8,7 +8,9 @@
             "name": "Python Debugger: Module",
             "type": "debugpy",
             "request": "launch",
-            "module": "main"
+            "module": "main",
+            "args": "--printer-ip \"$PRINTER_IP\" --slack-url \"$SLACK_URL\"",
+            "envFile": "${workspaceFolder}/.env.local"
         }
     ]
 }
