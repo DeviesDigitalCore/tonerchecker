@@ -30,6 +30,6 @@ jobs:
         docker build . --file Dockerfile --tag deviesdevelopment/tonerchecker:dev
 
     - name: Push Docker image to Docker Hub
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
         docker push deviesdevelopment/tonerchecker:dev
