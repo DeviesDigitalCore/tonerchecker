@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY *.py .
-COPY check_snmp_printer .
+COPY check_snmp_printer/check_snmp_printer check_snmp_printer/check_snmp_printer
 
 RUN snmpget --version
 
