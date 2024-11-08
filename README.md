@@ -19,7 +19,7 @@ docker run deviesdevelopment/tonerchecker --slack-url {YOUR_SLACK_URL} --printer
 
 ### Running with Python
 
-__Make sure to initialize the git submodule with `git submodules init`.__
+__Make sure to initialize the git submodule with `git submodule init`.__
 
 To run directly with Python:
 
@@ -40,7 +40,7 @@ options:
 
 ## Development
 
-__Make sure to initialize the git submodule with `git submodules init`.__
+__Make sure to initialize the git submodule with `git submodule init`.__
 
 This project works by running a shell script through Python, formatting the output, and posting it to a designated Slack channel. You can run the Python script directly via [main.py](main.py).
 

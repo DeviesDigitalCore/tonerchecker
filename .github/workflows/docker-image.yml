@@ -14,5 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: true
+        fetch-depth: 0
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag deviesdevelopment/tonerchecker --tag deviesdevelopment/tonerchecker:latest
