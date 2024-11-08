@@ -1,9 +1,11 @@
+import glob
 import logging
 import os
-from snmp import TonerStatus, check_toner_status
+
 import dotenv
-import glob
+
 from slack import post_to_slack
+from snmp import TonerStatus, check_toner_status
 
 
 def configure():

@@ -1,7 +1,7 @@
-from dataclasses import dataclass
 import logging
 import os
 import subprocess
+from dataclasses import dataclass
 
 
 def check_toner_status():
