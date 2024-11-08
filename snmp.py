@@ -29,7 +29,7 @@ def check_toner_status(config: Config):
 def _get_toner_level(ip, consumable):
     arguments = [f"-H", ip, "-t", "consumable", "-o", consumable]
 
-    script_path = "check_snmp_printer"
+    script_path = "check_snmp_printer/check_snmp_printer"
     result = subprocess.run(
         ["bash", script_path] + arguments, capture_output=True, text=True
     )

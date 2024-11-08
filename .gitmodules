@@ -1,0 +1,3 @@
+[submodule "check_snmp_printer"]
+	path = check_snmp_printer
+	url = https://github.com/DeviesDigitalCore/check_snmp_printer.git
