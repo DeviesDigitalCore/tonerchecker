@@ -1,17 +1,21 @@
-import glob
 import logging
-import os
 
-import dotenv
-
+from config import ConfigLoader
 from slack import post_to_slack
 from snmp import TonerStatus, check_toner_status
 
 
 def configure():
     logging.basicConfig(level=logging.WARNING)
-    for env_file in glob.glob(".env*"):
-        dotenv.load_dotenv(env_file)
+
+    try:
+        config_loader = ConfigLoader()
+        config = config_loader.get_config()
+        logging.info(f"Using config {config}")
+        return config
+    except ValueError as e:
+        logging.error(f"Configuration error: {e}")
+        raise
 
 
 def levels_to_message(levels: list[TonerStatus]):
@@ -22,16 +26,12 @@ def levels_to_message(levels: list[TonerStatus]):
     return message
 
 
-configure()
-
-low_level_str = os.getenv("LOW_LEVEL")
-assert low_level_str is not None, "LOW_LEVEL not configured"
-low_level = int(low_level_str)
+config = configure()
 
 
-statuses = check_toner_status()
-low_statuses = [s for s in statuses if s.level <= low_level]
+statuses = check_toner_status(config)
+low_statuses = [s for s in statuses if s.level <= config.low_level]
 
 if any(low_statuses):
     message = levels_to_message(low_statuses)
-    post_to_slack(message)
+    post_to_slack(message, config)

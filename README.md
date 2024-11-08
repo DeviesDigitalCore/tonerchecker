@@ -2,23 +2,53 @@
 
 Ever been the one to order toner for the printer when it’s running low? Now, __everyone__ asks you when it’s about to run out...
 
-Introducing Tonerchecker! With Tonerchecker, you can automatically send a Slack message when the toner reaches a critical level.
+Introducing **Tonerchecker**! With Tonerchecker, you can automatically send a Slack message when the toner reaches a critical level.
 
 Docker image available at: [deviesdevelopment/tonerchecker on Docker Hub](https://hub.docker.com/repository/docker/deviesdevelopment/tonerchecker)
 
-## Development
 
-This project works by running a shell script through Python, with the output formatted and posted to a designated Slack channel.
+## Usage
 
-If you start the application without any environment variables set, it will log the required variables. A list of all possible environment variables can be found in the [.env file](.env).
+### Running the Official Docker Image
 
-To get the application up and running, use:
+To run the script using the latest official Docker image:
+
 ```bash
-docker compose up --build
+docker run deviesdevelopment/tonerchecker --slack-url {YOUR_SLACK_URL} --printer-ip {YOUR_PRINTER_IP}
 ```
 
-Alternatively, you can run the Python script directly: [main.py](main.py).
+### Running with Python
 
-## Requested Features:
+To run directly with Python:
 
-- Add support for custom Slack messages.
+```
+usage: main.py [-h] --slack-url SLACK_URL --printer-ip PRINTER_IP [--low-level LOW_LEVEL]
+
+Configuration for application
+
+options:
+  -h, --help            show this help message and exit
+  --slack-url SLACK_URL
+                        Slack Webhook URL (required)
+  --printer-ip PRINTER_IP
+                        Printer IP address (required)
+  --low-level LOW_LEVEL
+                        Low level threshold (default: 10)
+```
+
+## Development
+
+This project works by running a shell script through Python, formatting the output, and posting it to a designated Slack channel. You can run the Python script directly via [main.py](main.py).
+
+### Docker
+
+To build and push a new Docker image, run the following commands:
+
+```
+docker build -t deviesdevelopment/tonerchecker .
+docker push deviesdevelopment/tonerchecker
+```
+
+## Feature Requests:
+
+- Add support for custom Slack messages

@@ -1,10 +1,7 @@
-import os
-
 import requests
 
+from config import Config
 
-def post_to_slack(message):
-    slack_url = os.getenv("SLACK_URL")
-    assert slack_url is not None, "SLACK_URL not configured"
 
-    requests.post(slack_url, json={"text": message})
+def post_to_slack(message, config: Config):
+    requests.post(config.slack_url, json={"text": message})

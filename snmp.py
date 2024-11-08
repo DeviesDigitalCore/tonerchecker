@@ -3,13 +3,10 @@ import os
 import subprocess
 from dataclasses import dataclass
 
+from config import Config
 
-def check_toner_status():
 
-    printer_ip = os.getenv("PRINTER_IP")
-
-    assert printer_ip is not None, "PRINTER_IP not configured."
-    logging.info(f"Using printer IP {printer_ip}")
+def check_toner_status(config: Config):
 
     outputs = []
     for consumable in [
@@ -19,7 +16,7 @@ def check_toner_status():
         "yellow",
         "drum",
     ]:
-        result = _get_toner_level(printer_ip, consumable)
+        result = _get_toner_level(config.printer_ip, consumable)
         try:
             out = _map_output(result, consumable)
             outputs.append(out)
